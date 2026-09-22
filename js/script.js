@@ -79,6 +79,32 @@ activities.addEventListener("change", (event) => {
   } else {
     total -= cost;
   }
-
+  //add this to the interface
   totalActivitiesCost.innerHTML = "Total: $" + total;
+});
+
+payPal.hidden = true;
+bitCoin.hidden = true;
+
+//set the current selections of payment on
+payment.children[1].setAttribute("selected", true);
+
+//listening for the change in payment to happen
+payment.addEventListener("change", (event) => {
+  // if credit crd is selected show it then hide the other 2
+  if (event.target.value === "credit-card") {
+    creditCard.hidden = false;
+    payPal.hidden = true;
+    bitCoin.hidden = true;
+  }
+  if (event.target.value === "paypal") {
+    payPal.hidden = false;
+    creditCard.hidden = true;
+    bitCoin.hidden = true;
+  }
+  if (event.target.value === "bitcoin") {
+    bitCoin.hidden = false;
+    payPal.hidden = true;
+    creditCard.hidden = true;
+  }
 });
