@@ -27,6 +27,13 @@ console.log("CREDITCARD", creditCard);
 console.log("PAYPAL", payPal);
 console.log("BITCOIN", bitCoin);
 
+const name = document.querySelector("#name");
+const email = document.querySelector("#email");
+const cardNumber = document.querySelector("#cc-num");
+const zipCode = document.querySelector("#zip");
+const cvv = document.querySelector("#cvv");
+const form = document.querySelector("form");
+
 //hiding the variable by default
 otherJobRole.hidden = true;
 
@@ -106,5 +113,64 @@ payment.addEventListener("change", (event) => {
     bitCoin.hidden = false;
     payPal.hidden = true;
     creditCard.hidden = true;
+  }
+});
+
+//adding a listener for thr submit button
+form.addEventListener("submit", (event) => {
+  const nameValue = name.value;
+  const nameRegex = /^.+$/;
+  const nameValid = nameRegex.test(nameValue);
+  console.log("NAME_VALID", nameValid);
+  console.log("NAME_VALUE", nameValue);
+
+  const emailValue = email.value;
+  const emailRegex = /^.+@.+\..+$/;
+  const emailValid = emailRegex.test(emailValue);
+  console.log("Email_VALID", emailValid);
+  console.log("Email_VALUE", emailValue);
+
+  const activitiesSectionIsValid = total > 0;
+
+  //validating name if correctly entered
+  if (nameValid === false) {
+    //stop page from reloading
+    event.preventDefault();
+  }
+  //validating email if correctly entered
+  if (emailValid === false) {
+    //stop page from reloading
+    event.preventDefault();
+  }
+  //validating activities if at least one entered correctly
+  if (activitiesSectionIsValid === false) {
+    //stop page from reloading
+    event.preventDefault();
+  }
+  // if the credit card is selected
+  if (payment.value === "credit-card") {
+    //get the value
+    const cardNumberValue = cardNumber.value;
+    //from start to end of value it must be a digit between 13 and 16
+    const cardNumberRegex = /^\d{13,16}$/;
+    //test the value
+    const cardNumberValid = cardNumberRegex.test(cardNumberValue);
+    const zipCodeValue = zipCode.value;
+    const zipCodeRegex = /^\d{5}$/;
+    const zipCodeValid = zipCodeRegex.test(zipCodeValue);
+    const cvvValue = cvv.value;
+    const cvvRegex = /^\d{3}$/;
+    const cvvValid = cvvRegex.test(cvvValue);
+
+    //if the card num is not valid
+    if (cardNumberValid === false) {
+      event.preventDefault();
+    }
+    if (zipCodeValid === false) {
+      event.preventDefault();
+    }
+    if (cvvValid === false) {
+      event.preventDefault();
+    }
   }
 });
