@@ -34,6 +34,11 @@ const zipCode = document.querySelector("#zip");
 const cvv = document.querySelector("#cvv");
 const form = document.querySelector("form");
 
+const activityRegisterCheckboxes = document.querySelectorAll(
+  'input[type ="checkbox"]'
+);
+console.log("CHECKBOXES", activityRegisterCheckboxes);
+
 //hiding the variable by default
 otherJobRole.hidden = true;
 
@@ -152,6 +157,7 @@ form.addEventListener("submit", (event) => {
     //get the value
     const cardNumberValue = cardNumber.value;
     //from start to end of value it must be a digit between 13 and 16
+    // used google also as a resource
     const cardNumberRegex = /^\d{13,16}$/;
     //test the value
     const cardNumberValid = cardNumberRegex.test(cardNumberValue);
@@ -174,3 +180,17 @@ form.addEventListener("submit", (event) => {
     }
   }
 });
+
+//loop through the list of checkboxes
+for (let i = 0; i < activityRegisterCheckboxes.length; i++) {
+  //for the current checkbox the user is on
+  const currentCheckbox = activityRegisterCheckboxes[i];
+  //add the focus to the current group
+  currentCheckbox.addEventListener("focus", () => {
+    currentCheckbox.parentElement.classList.add("focus");
+  });
+  //blur the checkbox and remove the blur
+  currentCheckbox.addEventListener("blur", () => {
+    currentCheckbox.parentElement.classList.remove("focus");
+  });
+}
