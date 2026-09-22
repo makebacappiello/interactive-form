@@ -141,16 +141,30 @@ form.addEventListener("submit", (event) => {
   if (nameValid === false) {
     //stop page from reloading
     event.preventDefault();
+    showErrors(name);
+  } else {
+    showGoodInput(name);
   }
+
   //validating email if correctly entered
   if (emailValid === false) {
     //stop page from reloading
     event.preventDefault();
+    //show all email errors
+    showErrors(email);
+  } else {
+    //show the good inputs
+    showGoodInput(email);
   }
   //validating activities if at least one entered correctly
   if (activitiesSectionIsValid === false) {
     //stop page from reloading
     event.preventDefault();
+    //show invalid activities section
+    showErrors(activities);
+  } else {
+    //show valid activities section
+    showGoodInput(activities);
   }
   // if the credit card is selected
   if (payment.value === "credit-card") {
@@ -171,12 +185,24 @@ form.addEventListener("submit", (event) => {
     //if the card num is not valid
     if (cardNumberValid === false) {
       event.preventDefault();
+
+      //show cardNumber as not valid
+      showErrors(cardNumber);
+    } else {
+      // otherwise show cardNumber as valid
+      showGoodInput(cardNumber);
     }
     if (zipCodeValid === false) {
       event.preventDefault();
+      showErrors(zipCode);
+    } else {
+      showGoodInput(zipCode);
     }
     if (cvvValid === false) {
       event.preventDefault();
+      showErrors(cvv);
+    } else {
+      showGoodInput(cvv);
     }
   }
 });
@@ -189,8 +215,23 @@ for (let i = 0; i < activityRegisterCheckboxes.length; i++) {
   currentCheckbox.addEventListener("focus", () => {
     currentCheckbox.parentElement.classList.add("focus");
   });
-  //blur the checkbox and remove the blur
+  //add blur the checkbox and remove the focus
   currentCheckbox.addEventListener("blur", () => {
     currentCheckbox.parentElement.classList.remove("focus");
   });
+}
+function showErrors(field) {
+  const parent = field.parentElement;
+  //add the invalid class
+  parent.classList.add("not-valid");
+  //remove its counter class
+  parent.classList.remove("valid");
+  //show the hint
+  parent.lastElementChild.hidden = false;
+}
+function showGoodInput(field) {
+  const parent = field.parentElement;
+  parent.classList.add("valid");
+  parent.classList.remove("not-valid");
+  parent.lastElementChild.hidden = true;
 }
