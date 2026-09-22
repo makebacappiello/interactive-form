@@ -11,6 +11,22 @@ const design = document.querySelector("#design");
 const color = document.querySelector("#color");
 console.log(color);
 console.log(design);
+
+const activities = document.querySelector("#activities");
+let totalActivitiesCost = document.querySelector("#activities-cost");
+let total = 0;
+console.log("ACTIVITIES", activities);
+console.log("ACTIVITY COST", totalActivitiesCost);
+
+const payment = document.querySelector("#payment");
+const creditCard = document.querySelector("#credit-card");
+const payPal = document.querySelector("#paypal");
+const bitCoin = document.querySelector("#bitcoin");
+console.log("PAYMENT", payment);
+console.log("CREDITCARD", creditCard);
+console.log("PAYPAL", payPal);
+console.log("BITCOIN", bitCoin);
+
 //hiding the variable by default
 otherJobRole.hidden = true;
 
@@ -30,7 +46,7 @@ design.addEventListener("change", (event) => {
   color.disabled = false;
   // when you go through each item
   for (let i = 0; i < color.children.length; i++) {
-    // the current color will be the one selected
+    // the current color will be the one currently going through the loop
     const currentColors = color.children[i];
     const colorTheme = currentColors.getAttribute("data-theme");
     //if the selected design matches the color's theme
@@ -48,4 +64,21 @@ design.addEventListener("change", (event) => {
       console.log(currentColors);
     }
   }
+});
+
+//listen for the change event
+activities.addEventListener("change", (event) => {
+  // used resource https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Unary_plus here to turn the string into a number
+  const cost = +event.target.getAttribute("data-cost");
+  console.log("COST", typeof cost);
+  console.log("ACTUAL", cost);
+
+  //if item is selected add the cost otherwise minus the cost
+  if (event.target.checked) {
+    total += cost;
+  } else {
+    total -= cost;
+  }
+
+  totalActivitiesCost.innerHTML = "Total: $" + total;
 });
