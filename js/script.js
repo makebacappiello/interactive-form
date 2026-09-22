@@ -11,7 +11,6 @@ const design = document.querySelector("#design");
 const color = document.querySelector("#color");
 console.log(color);
 console.log(design);
-console.log("JavaScript is connected!");
 //hiding the variable by default
 otherJobRole.hidden = true;
 
@@ -21,5 +20,32 @@ jobRole.addEventListener("change", (event) => {
     otherJobRole.hidden = false;
   } else {
     otherJobRole.hidden = true;
+  }
+});
+
+//disabling the color element
+color.disabled = true;
+
+design.addEventListener("change", (event) => {
+  color.disabled = false;
+  // when you go through each item
+  for (let i = 0; i < color.children.length; i++) {
+    // the current color will be the one selected
+    const currentColors = color.children[i];
+    const colorTheme = currentColors.getAttribute("data-theme");
+    //if the selected design matches the color's theme
+    if (event.target.value === colorTheme) {
+      //then show the colors
+      currentColors.hidden = false;
+      //set the current colors to selected
+      currentColors.setAttribute("selected", true);
+      //otherwise
+    } else {
+      //hide the current colors
+      currentColors.hidden = true;
+      //remove the list of current colors
+      currentColors.removeAttribute("selected");
+      console.log(currentColors);
+    }
   }
 });
