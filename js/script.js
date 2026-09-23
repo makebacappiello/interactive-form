@@ -13,6 +13,7 @@ console.log(color);
 console.log(design);
 
 const activities = document.querySelector("#activities");
+const activitiesBox = document.querySelector("#activities-box");
 let totalActivitiesCost = document.querySelector("#activities-cost");
 let total = 0;
 console.log("ACTIVITIES", activities);
@@ -121,7 +122,7 @@ payment.addEventListener("change", (event) => {
   }
 });
 
-//adding a listener for thr submit button
+//adding a listener for the form submit
 form.addEventListener("submit", (event) => {
   const nameValue = name.value;
   const nameRegex = /^.+$/;
@@ -135,9 +136,10 @@ form.addEventListener("submit", (event) => {
   console.log("Email_VALID", emailValid);
   console.log("Email_VALUE", emailValue);
 
+  //check to see if at least 1 activity is selected
   const activitiesSectionIsValid = total > 0;
 
-  //validating name if correctly entered
+  //validating name
   if (nameValid === false) {
     //stop page from reloading
     event.preventDefault();
@@ -146,14 +148,14 @@ form.addEventListener("submit", (event) => {
     showGoodInput(name);
   }
 
-  //validating email if correctly entered
+  //validating email
   if (emailValid === false) {
     //stop page from reloading
     event.preventDefault();
-    //show all email errors
+    //show email as invalid
     showErrors(email);
   } else {
-    //show the good inputs
+    //show email as valid
     showGoodInput(email);
   }
   //validating activities if at least one entered correctly
@@ -161,10 +163,10 @@ form.addEventListener("submit", (event) => {
     //stop page from reloading
     event.preventDefault();
     //show invalid activities section
-    showErrors(activities);
+    showErrors(activitiesBox);
   } else {
     //show valid activities section
-    showGoodInput(activities);
+    showGoodInput(activitiesBox);
   }
   // if the credit card is selected
   if (payment.value === "credit-card") {
@@ -221,6 +223,7 @@ for (let i = 0; i < activityRegisterCheckboxes.length; i++) {
   });
 }
 function showErrors(field) {
+  //finds the HTML element directly wrapping the element one level up
   const parent = field.parentElement;
   //add the invalid class
   parent.classList.add("not-valid");
